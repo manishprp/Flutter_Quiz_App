@@ -3,8 +3,8 @@ import 'package:fquiz_app/styles.dart';
 
 // So this is one screen with alll its ui and the stateless widget as there are no changes i this screen. this is the first screen
 class StartPage extends StatelessWidget {
-  const StartPage({super.key});
-  void startQuiz() {}
+  const StartPage(this.startQuiz, {super.key});
+  final void Function() startQuiz;
   @override
   Widget build(BuildContext context) {
     return Center(
