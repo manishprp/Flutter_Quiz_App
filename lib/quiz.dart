@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:fquiz_app/main_questions.dart';
 import 'package:fquiz_app/questions.dart';
+import 'package:fquiz_app/results_screen.dart';
 import 'package:fquiz_app/start_screen.dart';
 
 // this is the class, where there will changes occurs in the child part of the container there will be changes will will occur on navgation
@@ -17,6 +19,8 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   Widget? currentScreen;
+
+  List<String> chosenAnswersList = [];
   /*
   Here we are declaring this widget variable and then we are setting its current value to StartPage in the initState methos, this gets executed when the object opf the widget is formed
   so, there are no issues if we are referring to some things in the widget like switchScreen which is the part of this page and 
@@ -30,9 +34,28 @@ class _QuizState extends State<Quiz> {
     super.initState();
   }
 
+  void chosenAnswer(String answer) {
+    chosenAnswersList.add(answer);
+    if (chosenAnswersList.length == questions.length) {
+      setState(() {
+        currentScreen = QuestionsSummary(
+          chosenAnswers: chosenAnswersList,
+          navigateToStart: switchScreenToStart,
+        );
+      });
+    }
+  }
+
+  void switchScreenToStart() {
+    setState(() {
+      chosenAnswersList = [];
+      currentScreen = StartPage(switchScreen);
+    });
+  }
+
   void switchScreen() {
     setState(() {
-      currentScreen = const Question();
+      currentScreen = Question(chosenAnswer: chosenAnswer);
     });
   }
 

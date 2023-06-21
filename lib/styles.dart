@@ -15,3 +15,10 @@ const TextStyle kMediumTextStyleDark =
     TextStyle(color: Colors.black, fontSize: 18);
 const TextStyle kLargeTextStyleDark =
     TextStyle(color: Colors.black, fontSize: 22);
+// answers summary style
+const TextStyle kSmallTextStyleLightCorrectAnswers =
+    TextStyle(color: Colors.lightBlue, fontSize: 16);
+const TextStyle kMediumTextStyleLightIncorrectAnswers =
+    TextStyle(color: Colors.grey, fontSize: 16);
+const TextStyle kMediumTextStyleLightQuestions =
+    TextStyle(color: Colors.white, fontSize: 20);

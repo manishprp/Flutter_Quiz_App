@@ -4,17 +4,20 @@ import 'package:fquiz_app/main_questions.dart';
 import 'answer_buttons.dart';
 
 class Question extends StatefulWidget {
-  const Question({super.key});
+  const Question({super.key, required this.chosenAnswer});
+  final void Function(String answer) chosenAnswer;
   @override
   State<Question> createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
   var currentIndex = 0;
-  void answerQuestions() {
+  void answerQuestions(String answer) {
+    widget.chosenAnswer(answer);
     setState(() {
-      if (currentIndex == 5) currentIndex = 1;
-      currentIndex++;
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+      }
     });
   }
 
@@ -45,7 +48,15 @@ class _QuestionState extends State<Question> {
              but then we have a widget list and we cannot pass it in column as it needs just widget and not list, therefore we use the spread operator "..."
              this makes the coimma separated values out of the list which is then individual widgets and this was we get the dynamiucally generated QuestionButtons (answer buttons more effectively)*/
             ...currentQuestion.getShuffeledAnswers().map((answers) {
-              return QuestionButtons(answer: answers, onTap: answerQuestions);
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: QuestionButtons(
+                  answer: answers,
+                  onTap: () {
+                    answerQuestions(answers);
+                  },
+                ),
+              );
             })
           ],
         ),
